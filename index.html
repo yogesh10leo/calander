@@ -1,0 +1,113 @@
+<html>
+<head>
+    <title>Exact Age Calculator</title>
+	<style>
+    #main_container {
+    width: 400px;
+    margin: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
+    font-family: sans-serif;
+    border-radius: 20px;
+    border: 3px solid #999;
+}
+
+#english_container, #nepali_container {
+    text-align: center;
+    margin: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#nepali_container {
+    margin: 40px 5px;
+    padding: 20px;
+    border-radius: 50px;
+    border: 1px solid #000;
+    font-weight: bolder;
+    background: #EEE;
+    font-size: 20px;
+    line-height: 40px;
+}
+
+#calculate {
+    cursor: pointer;
+    text-align: center;
+    width: 200px;
+    padding: 5px;
+    margin: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #999;
+    border-radius: 10px;
+    background: #FFD119;
+    background: -webkit-gradient(linear, left top, left bottom, from(#FFD119), to(#E6B800));
+	background: -moz-linear-gradient(top, #FFD119, #E6B800);
+    font-weight: bold;
+    height: 28px;
+    box-shadow: 0 -8px inset;
+}
+
+#calculate:hover {
+    background: -webkit-gradient(linear, left top, left bottom, from(#E6B800), to(#FFD119));
+	background: -moz-linear-gradient(top, #E6B800, #FFD119);
+    margin-top: 13px;
+    height: 25px;
+    box-shadow: 0 -5px inset;
+}
+
+#calculate:active {
+    background: #403300;
+    padding-top: 10px;
+    height: 20px;
+    box-shadow: 0 5px #000 inset;
+}
+
+#age {
+    padding: 5px;
+    border: 3px dashed #AAA;
+    background-color: green;
+}
+html{
+    background:rgb(100, 100, 1000);
+}
+    </style>
+
+</head>
+<body>
+    <div id="main_container">
+        <div id="english_container">Date in AD*: <input type="date" id="english_date"></div>
+        <br/>
+        <div id="calculate">Convert AD to BS</div><br>
+        
+        <div id="nepali_container"><span id="nepali_date">Date in BS</span></div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="calander.js">
+    </script>
+ <script type="text/javascript">
+     $(document).ready(function(){
+    $("#calculate").click(function(){
+        var mdate = $("#english_date").val().toString();
+        var yearThen = parseInt(mdate.substring(0,4), 10);
+        var monthThen = parseInt(mdate.substring(5,7), 10);
+        var dayThen = parseInt(mdate.substring(8,10), 10);
+
+        var bsConvertor=new BikramSambatConverter();
+        bsConvertor.convert(yearThen, monthThen, dayThen);
+        
+        var bs_date = bsConvertor.eng_to_nep(yearThen, monthThen, dayThen);
+        //return bs_date.year+"/"+bs_date.month+"/"+bs_date.date;
+
+        //return "You are<br/><span id=\"age\">"+bs_date.year +"/" + bs_date.month + "/" + bs_date.day +" </span> old";
+        document.getElementById("nepali_date").innerHTML=bs_date.year+"/"+bs_date.month+"/"+bs_date.date +" "+"," + bs_date.day;
+}
+
+)});
+
+     
+</script>
+</body>
+</html>
